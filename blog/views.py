@@ -8,9 +8,6 @@ def post_list(request):
     return render(request, 'blog/post/list.html', {'posts': posts})
 
 
-def post_dateil(request, id):
-    try:
-        post = Post.published.get(id=id)
-    except Post.DoesNotExist:
-        raise Http404("No post")
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id, status=Post.status.PUBLISHED)
     return render(request, 'blog/post/detail.html', {'post': post})
